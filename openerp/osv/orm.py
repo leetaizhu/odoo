@@ -3463,7 +3463,10 @@ class BaseModel(object):
                     res2 = self._columns[f].get(cr, self, ids, f, user, context=context, values=res)
                     for record in res:
                         if res2:
-                            record[f] = res2[record['id']]
+                            if res2.has_key(record['id']):
+                                record[f] = res2[record['id']]
+                            else:
+                                record[f] = []
                         else:
                             record[f] = []
 
